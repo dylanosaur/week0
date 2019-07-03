@@ -115,8 +115,42 @@ console.log(`myGirl has a name and it's ${myGirl.getName()}`);
 
 
 
-/* 11. Callback Functions
- * 12. This (keyword)
- * 
+/** 11. Callback  - 
+ * callback functions are functions passed to another function as an argument, such as setTimeout(callback, timoutDuration)
+ * they serve as interfaces between codebases and will be called outside the context of the code they are written in
  *
+ * 12. This (keyword)
  */
+
+let globalThisObject = {
+    someProperty: 'blue',
+    someFunction: function() { 
+        let output = `this object likes the color ${this.someProperty}`;
+        console.log(output);
+    },
+    someArrowFunction: () => {
+        let output = `this object likes the color ${this.someProperty}`;
+        console.log(output);
+    },
+    returnFunction: function() {
+        return this.someFunction;
+    }
+}
+
+let otherThisObject = {
+    someProperty: 'red',
+    newFunction: null,
+    someFunction: function() { 
+        let output = `this object likes the color ${this.someProperty}`;
+        console.log(output);
+    },
+    executeFunction: function(f) {
+        //this.newFunction = f;
+        console.log('executing...');
+        //this.newFunction();
+        f();}
+}
+
+globalThisObject.someFunction();
+otherThisObject.executeFunction(globalThisObject.someFunction);
+otherThisObject.executeFunction(globalThisObject.someArrowFunction);
