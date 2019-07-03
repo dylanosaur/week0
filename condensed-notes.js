@@ -132,9 +132,6 @@ let globalThisObject = {
         let output = `this object likes the color ${this.someProperty}`;
         console.log(output);
     },
-    returnFunction: function() {
-        return this.someFunction;
-    }
 }
 
 let otherThisObject = {
@@ -145,12 +142,25 @@ let otherThisObject = {
         console.log(output);
     },
     executeFunction: function(f) {
-        //this.newFunction = f;
-        console.log('executing...');
-        //this.newFunction();
-        f();}
+        this.newFunction = f;
+        console.log('executing as function');
+        this.newFunction();
+        //f();
+    },
+    executeFunctionAsArrow: (f) => { 
+        this.newFunction = f;
+        console.log('executing as arrowFunction');
+        this.newFunction(); 
+        //f()
+    }
 }
 
 globalThisObject.someFunction();
+otherThisObject.someFunction();
 otherThisObject.executeFunction(globalThisObject.someFunction);
-otherThisObject.executeFunction(globalThisObject.someArrowFunction);
+//otherThisObject.executeFunction(globalThisObject.someArrowFunction);
+//otherThisObject.executeFunctionAsArrow(globalThisObject.someFunction);
+//otherThisObject.executeFunctionAsArrow(globalThisObject.someArrowFunction);
+otherThisObject.executeFunctionAsArrow(() => globalThisObject.someFunction() );
+//otherThisObject.executeFunctionAsArrow(() => globalThisObject.someArrowFunction() );
+
