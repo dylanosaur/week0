@@ -15,12 +15,9 @@
 
  const closureCreator = function() {
      const x = 10;
-     const innerFunction = function() {
-         console.log(x);
-     }
+     const innerFunction = function() {console.log(x)}
      return innerFunction;
  }
-
  inner = closureCreator();
  inner();
 
